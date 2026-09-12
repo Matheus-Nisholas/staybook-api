@@ -25,6 +25,10 @@ public class AcomodacaoRepositoryGateway implements AcomodacaoGateway {
 
     @Override
     public Acomodacao buscarPorId(Long id) {
-        return null;
+        return acomodacaoRepository
+                .findById(id)
+                .map(acomodacaoEntityMapper::toDomain)
+                .orElseThrow(() -> new RuntimeException("Acomodação não encontrada"));
+
     }
 }
