@@ -4,7 +4,7 @@ import com.nisholas.staybook.core.entities.Acomodacao;
 
 public interface CriarAcomodacaoCase {
 
-    Acomodacao execute(Acomodacao acomodacao);
+    public Acomodacao execute(Acomodacao acomodacao);
 
 
 
