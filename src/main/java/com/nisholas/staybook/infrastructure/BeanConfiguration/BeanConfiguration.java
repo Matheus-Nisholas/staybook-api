@@ -29,5 +29,12 @@ public class BeanConfiguration {
         return new BuscarTodasAcomodacoesCaseImpl(acomodacaoGateway);
     }
 
+    @Bean
+    public DeletarAcomodacaoCase deletarAcomodacaoCase(
+            AcomodacaoGateway acomodacaoGateway
+    ) {
+        return new DeletarAcomodacaoCaseImpl(acomodacaoGateway);
+    }
+
 }
 

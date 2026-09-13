@@ -43,4 +43,12 @@ public class AcomodacaoRepositoryGateway implements AcomodacaoGateway {
                 .toList();
     }
 
+    @Override
+    public Acomodacao excluir(Long id) {
+        Acomodacao acomodacao = buscarPorId(id);
+        acomodacaoRepository.deleteById(id);
+        return acomodacao;
+    }
+
+
 }

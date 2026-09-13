@@ -5,9 +5,11 @@ import com.nisholas.staybook.core.entities.Acomodacao;
 import com.nisholas.staybook.core.usecases.BuscarAcomodacaoCase;
 import com.nisholas.staybook.core.usecases.BuscarTodasAcomodacoesCase;
 import com.nisholas.staybook.core.usecases.CriarAcomodacaoCase;
+import com.nisholas.staybook.core.usecases.DeletarAcomodacaoCase;
 import com.nisholas.staybook.infrastructure.DTO.AcomodacaoDTO;
 import com.nisholas.staybook.infrastructure.Mapper.AcomodacaoMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,27 +28,37 @@ public class AcomodacaoController {
 
     private final AcomodacaoMapper acomodacaoMapper;
 
+    private final DeletarAcomodacaoCase deletarAcomodacaoCase;
+
     @PostMapping("post")
-    public ResponseEntity<AcomodacaoDTO> post(@RequestBody AcomodacaoDTO acomodacaoDTO){
+    public ResponseEntity<AcomodacaoDTO> post(@RequestBody AcomodacaoDTO acomodacaoDTO) {
         Acomodacao novaAcomodacao = criarAcomodacaoCase.execute(acomodacaoMapper.ToDomain(acomodacaoDTO));
         return ResponseEntity.ok(acomodacaoMapper.ToDTO(novaAcomodacao));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<AcomodacaoDTO> getById(@PathVariable Long id){
+    public ResponseEntity<AcomodacaoDTO> getById(@PathVariable Long id) {
         Acomodacao acomodacao = buscarAcomodacaoCase.execute(id);
         return ResponseEntity.ok(acomodacaoMapper.ToDTO(acomodacao));
     }
 
     @GetMapping()
-    public ResponseEntity<List<AcomodacaoDTO>> getAll(){
+    public ResponseEntity<List<AcomodacaoDTO>> getAll() {
         List<AcomodacaoDTO> acomodacao = buscarTodasAcomodacoes.excute()
                 .stream()
                 .map(acomodacaoMapper::ToDTO)
                 .toList();
 
-        return  ResponseEntity.ok(acomodacao);
+        return ResponseEntity.ok(acomodacao);
     }
 
-
+    @DeleteMapping("{id}")
+    public ResponseEntity<AcomodacaoDTO> deleteById(@PathVariable Long id) {
+        Acomodacao acomodacao = buscarAcomodacaoCase.execute(id);
+        if (acomodacao != null) {
+            deletarAcomodacaoCase.execute(id);
+            return ResponseEntity.ok(acomodacaoMapper.ToDTO(acomodacao));
+        }
+        return  ResponseEntity.notFound().build();
+    }
 }
