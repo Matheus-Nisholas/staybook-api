@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -59,6 +60,25 @@ public class AcomodacaoRepositoryGateway implements AcomodacaoGateway {
                 .stream()
                 .map(acomodacaoEntityMapper::toDomain)
                 .toList();
+
+    }
+
+    @Override
+    public Acomodacao atualizar(Long id, Acomodacao acomodacao) {
+        Acomodacao acomodacaoExistente = buscarPorId(id);
+
+        Acomodacao acomodacaoAtualizada = new Acomodacao(
+                acomodacaoExistente.id(),
+                acomodacao.nome(),
+                acomodacao.endereco(),
+                acomodacao.descricao(),
+                acomodacaoExistente.identificador(),
+                acomodacao.preco(),
+                acomodacaoExistente.status(),
+                acomodacao.acomodacaoTipos(),
+                acomodacaoExistente.dataDeCriacao());
+
+                return salvar(acomodacaoAtualizada);
 
     }
 

@@ -17,4 +17,6 @@ public interface AcomodacaoGateway {
 
     List<Acomodacao> buscarPorTipo(AcomodacaoTipos type);
 
+    Acomodacao atualizar(Long id, Acomodacao acomodacao);
+
 }

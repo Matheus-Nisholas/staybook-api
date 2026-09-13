@@ -43,5 +43,12 @@ public class BeanConfiguration {
         return new BuscarPorTipoDeAcomodacaoCaseImpl(acomodacaoGateway);
     }
 
+    @Bean
+    public AtualizarAcomodacaoCase atualizarAcomodacaoCase(
+            AcomodacaoGateway acomodacaoGateway
+    ) {
+        return new AtualizarAcomodacaoCaseImpl(acomodacaoGateway);
+    }
+
 }
 

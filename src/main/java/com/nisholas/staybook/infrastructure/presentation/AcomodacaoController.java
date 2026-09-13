@@ -29,6 +29,8 @@ public class AcomodacaoController {
 
     private final BuscarPorTipoDeAcomodacaoCase buscarPorTipoDeAcomodacaoCase;
 
+    private final AtualizarAcomodacaoCase atualizarAcomodacaoCase;
+
     @PostMapping()
     public ResponseEntity<AcomodacaoDTO> post(@RequestBody AcomodacaoDTO acomodacaoDTO) {
         Acomodacao novaAcomodacao = criarAcomodacaoCase.execute(acomodacaoMapper.ToDomain(acomodacaoDTO));
@@ -66,5 +68,15 @@ public class AcomodacaoController {
         List<Acomodacao> acomodacoes = buscarPorTipoDeAcomodacaoCase.execute(type);
         List<AcomodacaoDTO> acomodacoesDTO = acomodacoes.stream().map(acomodacaoMapper::ToDTO).toList();
         return ResponseEntity.ok(acomodacoesDTO);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<AcomodacaoDTO> update(@PathVariable Long id, @RequestBody AcomodacaoDTO acomodacaoDTO) {
+        Acomodacao acomodacao = buscarAcomodacaoCase.execute(id);
+        if (acomodacao != null) {
+            Acomodacao acomodacaoAtualizada = atualizarAcomodacaoCase.execute(id, acomodacaoMapper.ToDomain(acomodacaoDTO));
+            return  ResponseEntity.ok(acomodacaoMapper.ToDTO(acomodacaoAtualizada));
+        }
+        return ResponseEntity.ok(acomodacaoMapper.ToDTO(acomodacao));
     }
 }
