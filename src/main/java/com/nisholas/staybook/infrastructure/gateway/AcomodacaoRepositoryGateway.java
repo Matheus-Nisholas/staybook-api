@@ -1,6 +1,8 @@
 package com.nisholas.staybook.infrastructure.gateway;
 
 import com.nisholas.staybook.core.entities.Acomodacao;
+import com.nisholas.staybook.core.enums.AcomodacaoTipos;
+import com.nisholas.staybook.core.enums.Status;
 import com.nisholas.staybook.core.gateway.AcomodacaoGateway;
 import com.nisholas.staybook.infrastructure.Mapper.AcomodacaoEntityMapper;
 import com.nisholas.staybook.infrastructure.persistence.AcomodacaoEntity;
@@ -48,6 +50,16 @@ public class AcomodacaoRepositoryGateway implements AcomodacaoGateway {
         Acomodacao acomodacao = buscarPorId(id);
         acomodacaoRepository.deleteById(id);
         return acomodacao;
+    }
+
+    @Override
+    public List<Acomodacao> buscarPorTipo(AcomodacaoTipos type) {
+        return acomodacaoRepository
+                .findByAcomodacaoTipos(type)
+                .stream()
+                .map(acomodacaoEntityMapper::toDomain)
+                .toList();
+
     }
 
 

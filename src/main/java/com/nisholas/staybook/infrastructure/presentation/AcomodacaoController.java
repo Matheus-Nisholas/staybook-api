@@ -2,14 +2,11 @@ package com.nisholas.staybook.infrastructure.presentation;
 
 import com.nisholas.staybook.core.entities.Acomodacao;
 
-import com.nisholas.staybook.core.usecases.BuscarAcomodacaoCase;
-import com.nisholas.staybook.core.usecases.BuscarTodasAcomodacoesCase;
-import com.nisholas.staybook.core.usecases.CriarAcomodacaoCase;
-import com.nisholas.staybook.core.usecases.DeletarAcomodacaoCase;
+import com.nisholas.staybook.core.enums.AcomodacaoTipos;
+import com.nisholas.staybook.core.usecases.*;
 import com.nisholas.staybook.infrastructure.DTO.AcomodacaoDTO;
 import com.nisholas.staybook.infrastructure.Mapper.AcomodacaoMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +27,9 @@ public class AcomodacaoController {
 
     private final DeletarAcomodacaoCase deletarAcomodacaoCase;
 
-    @PostMapping("post")
+    private final BuscarPorTipoDeAcomodacaoCase buscarPorTipoDeAcomodacaoCase;
+
+    @PostMapping()
     public ResponseEntity<AcomodacaoDTO> post(@RequestBody AcomodacaoDTO acomodacaoDTO) {
         Acomodacao novaAcomodacao = criarAcomodacaoCase.execute(acomodacaoMapper.ToDomain(acomodacaoDTO));
         return ResponseEntity.ok(acomodacaoMapper.ToDTO(novaAcomodacao));
@@ -59,6 +58,13 @@ public class AcomodacaoController {
             deletarAcomodacaoCase.execute(id);
             return ResponseEntity.ok(acomodacaoMapper.ToDTO(acomodacao));
         }
-        return  ResponseEntity.notFound().build();
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<AcomodacaoDTO>> getAllByType(@RequestParam AcomodacaoTipos type) {
+        List<Acomodacao> acomodacoes = buscarPorTipoDeAcomodacaoCase.execute(type);
+        List<AcomodacaoDTO> acomodacoesDTO = acomodacoes.stream().map(acomodacaoMapper::ToDTO).toList();
+        return ResponseEntity.ok(acomodacoesDTO);
     }
 }
