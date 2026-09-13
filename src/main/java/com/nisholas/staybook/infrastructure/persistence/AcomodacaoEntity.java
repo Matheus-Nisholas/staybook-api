@@ -3,7 +3,9 @@ package com.nisholas.staybook.infrastructure.persistence;
 import com.nisholas.staybook.core.enums.AcomodacaoTipos;
 import com.nisholas.staybook.core.enums.Status;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

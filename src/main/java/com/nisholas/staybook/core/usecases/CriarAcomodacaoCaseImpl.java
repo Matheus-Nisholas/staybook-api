@@ -1,7 +1,11 @@
 package com.nisholas.staybook.core.usecases;
 
 import com.nisholas.staybook.core.entities.Acomodacao;
+import com.nisholas.staybook.core.enums.Status;
 import com.nisholas.staybook.core.gateway.AcomodacaoGateway;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class CriarAcomodacaoCaseImpl implements CriarAcomodacaoCase{
 
@@ -13,6 +17,17 @@ public class CriarAcomodacaoCaseImpl implements CriarAcomodacaoCase{
 
     @Override
     public Acomodacao execute(Acomodacao acomodacao) {
-        return acomodacaoGateway.salvar(acomodacao);
+        Acomodacao novaAcomodacao = new Acomodacao(
+                null,
+                acomodacao.nome(),
+                acomodacao.endereco(),
+                acomodacao.descricao(),
+                UUID.randomUUID().toString(),
+                acomodacao.preco(),
+                Status.DISPONIVEL,
+                acomodacao.acomodacaoTipos(),
+                LocalDateTime.now()
+        );
+        return acomodacaoGateway.salvar(novaAcomodacao);
     }
 }

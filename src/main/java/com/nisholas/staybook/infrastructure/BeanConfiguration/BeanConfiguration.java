@@ -1,10 +1,7 @@
 package com.nisholas.staybook.infrastructure.BeanConfiguration;
 
 import com.nisholas.staybook.core.gateway.AcomodacaoGateway;
-import com.nisholas.staybook.core.usecases.BuscarAcomodacaoCase;
-import com.nisholas.staybook.core.usecases.BuscarAcomodacaoCaseImpl;
-import com.nisholas.staybook.core.usecases.CriarAcomodacaoCase;
-import com.nisholas.staybook.core.usecases.CriarAcomodacaoCaseImpl;
+import com.nisholas.staybook.core.usecases.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,5 +21,13 @@ public class BeanConfiguration {
     ) {
         return new BuscarAcomodacaoCaseImpl(acomodacaoGateway);
     }
+
+    @Bean
+    public BuscarTodasAcomodacoesCase buscarTodasAcomodacoes(
+            AcomodacaoGateway acomodacaoGateway
+    ) {
+        return new BuscarTodasAcomodacoesCaseImpl(acomodacaoGateway);
+    }
+
 }
 

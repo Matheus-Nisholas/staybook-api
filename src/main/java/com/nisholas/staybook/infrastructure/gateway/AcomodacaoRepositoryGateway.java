@@ -8,6 +8,8 @@ import com.nisholas.staybook.infrastructure.persistence.AcomodacaoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class AcomodacaoRepositoryGateway implements AcomodacaoGateway {
@@ -15,6 +17,7 @@ public class AcomodacaoRepositoryGateway implements AcomodacaoGateway {
     private final AcomodacaoRepository acomodacaoRepository;
 
     private final AcomodacaoEntityMapper acomodacaoEntityMapper;
+
 
     @Override
     public Acomodacao salvar(Acomodacao acomodacao) {
@@ -31,4 +34,13 @@ public class AcomodacaoRepositoryGateway implements AcomodacaoGateway {
                 .orElseThrow(() -> new RuntimeException("Acomodação não encontrada"));
 
     }
+
+    @Override
+    public List<Acomodacao> buscarTodas() {
+        return acomodacaoRepository.findAll()
+                .stream()
+                .map(acomodacaoEntityMapper::toDomain)
+                .toList();
+    }
+
 }
