@@ -1,6 +1,5 @@
 package com.nisholas.staybook.core.usecases;
 
-import com.nisholas.staybook.core.Exception.NotFoundAcomodaçaoException;
 import com.nisholas.staybook.core.entities.Acomodacao;
 import com.nisholas.staybook.core.gateway.AcomodacaoGateway;
 

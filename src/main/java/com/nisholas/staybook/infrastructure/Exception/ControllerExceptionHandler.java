@@ -1,7 +1,7 @@
 package com.nisholas.staybook.infrastructure.Exception;
 
 import com.nisholas.staybook.core.Exception.DuplicateEnderecoException;
-import com.nisholas.staybook.core.Exception.NotFoundAcomodaçaoException;
+import com.nisholas.staybook.core.Exception.NotFoundAcomodacaoException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +26,8 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
-    @ExceptionHandler(NotFoundAcomodaçaoException.class)
-    public ResponseEntity<ErrorResponse> handleNotFoundAcomodaçaoException(NotFoundAcomodaçaoException ex,
+    @ExceptionHandler(NotFoundAcomodacaoException.class)
+    public ResponseEntity<ErrorResponse> handleNotFoundAcomodaçaoException(NotFoundAcomodacaoException ex,
                                                                            HttpServletRequest request) {
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.NOT_FOUND.value(),

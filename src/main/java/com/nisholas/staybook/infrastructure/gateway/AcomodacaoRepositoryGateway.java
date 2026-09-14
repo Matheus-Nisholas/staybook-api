@@ -1,9 +1,8 @@
 package com.nisholas.staybook.infrastructure.gateway;
 
-import com.nisholas.staybook.core.Exception.NotFoundAcomodaçaoException;
+import com.nisholas.staybook.core.Exception.NotFoundAcomodacaoException;
 import com.nisholas.staybook.core.entities.Acomodacao;
 import com.nisholas.staybook.core.enums.AcomodacaoTipos;
-import com.nisholas.staybook.core.enums.Status;
 import com.nisholas.staybook.core.gateway.AcomodacaoGateway;
 import com.nisholas.staybook.infrastructure.Mapper.AcomodacaoEntityMapper;
 import com.nisholas.staybook.infrastructure.persistence.AcomodacaoEntity;
@@ -12,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -43,7 +41,7 @@ public class AcomodacaoRepositoryGateway implements AcomodacaoGateway {
         return acomodacaoRepository
                 .findById(id)
                 .map(acomodacaoEntityMapper::toDomain)
-                .orElseThrow(() -> new NotFoundAcomodaçaoException("A acomodação não foi encontrada ou não existe!"));
+                .orElseThrow(() -> new NotFoundAcomodacaoException("A acomodação não foi encontrada ou não existe!"));
 
     }
 
