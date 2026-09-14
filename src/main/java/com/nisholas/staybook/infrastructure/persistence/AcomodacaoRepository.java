@@ -11,4 +11,5 @@ public interface AcomodacaoRepository extends JpaRepository<AcomodacaoEntity, Lo
 
     List<AcomodacaoEntity> findByAcomodacaoTipos(AcomodacaoTipos acomodacaoTipos);
 
+
 }

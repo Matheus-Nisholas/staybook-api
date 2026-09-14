@@ -24,6 +24,7 @@ public class AcomodacaoEntity {
 
     private String nome;
 
+    @Column(unique = true)
     private String endereco;
 
     private String descricao;

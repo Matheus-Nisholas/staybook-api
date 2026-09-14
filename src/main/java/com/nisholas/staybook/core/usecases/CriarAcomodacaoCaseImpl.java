@@ -1,5 +1,6 @@
 package com.nisholas.staybook.core.usecases;
 
+import com.nisholas.staybook.core.Exception.DuplicateEnderecoException;
 import com.nisholas.staybook.core.entities.Acomodacao;
 import com.nisholas.staybook.core.enums.Status;
 import com.nisholas.staybook.core.gateway.AcomodacaoGateway;
@@ -28,6 +29,11 @@ public class CriarAcomodacaoCaseImpl implements CriarAcomodacaoCase{
                 acomodacao.acomodacaoTipos(),
                 LocalDateTime.now()
         );
-        return acomodacaoGateway.salvar(novaAcomodacao);
+
+        if (acomodacaoGateway.enderecoEmUso(acomodacao.endereco())) {
+            throw new DuplicateEnderecoException("O endereço:(" + acomodacao.endereco() + ") já está em uso");
+        }
+            return acomodacaoGateway.salvar(novaAcomodacao);
+
     }
 }

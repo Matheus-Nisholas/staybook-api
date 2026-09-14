@@ -30,6 +30,14 @@ public class AcomodacaoRepositoryGateway implements AcomodacaoGateway {
     }
 
     @Override
+    public boolean enderecoEmUso(String endereco) {
+        return acomodacaoRepository.findAll()
+                .stream()
+                .anyMatch(acomodacao -> acomodacao.getEndereco()
+                        .equalsIgnoreCase(endereco));
+    }
+
+    @Override
     public Acomodacao buscarPorId(Long id) {
         return acomodacaoRepository
                 .findById(id)

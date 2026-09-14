@@ -9,6 +9,8 @@ public interface AcomodacaoGateway {
 
     Acomodacao salvar(Acomodacao acomodacao);
 
+    boolean enderecoEmUso(String endereco);
+
     Acomodacao buscarPorId(Long id);
 
     List<Acomodacao> buscarTodas();
