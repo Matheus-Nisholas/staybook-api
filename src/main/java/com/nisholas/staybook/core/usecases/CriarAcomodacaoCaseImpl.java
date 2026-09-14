@@ -23,7 +23,7 @@ public class CriarAcomodacaoCaseImpl implements CriarAcomodacaoCase{
                 acomodacao.nome(),
                 acomodacao.endereco(),
                 acomodacao.descricao(),
-                UUID.randomUUID().toString(),
+                "STAY-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase(),
                 acomodacao.preco(),
                 Status.DISPONIVEL,
                 acomodacao.acomodacaoTipos(),
