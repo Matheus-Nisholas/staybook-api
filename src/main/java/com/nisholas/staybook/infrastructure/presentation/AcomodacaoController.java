@@ -7,6 +7,7 @@ import com.nisholas.staybook.core.usecases.*;
 import com.nisholas.staybook.infrastructure.DTO.AcomodacaoDTO;
 import com.nisholas.staybook.infrastructure.Mapper.AcomodacaoMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,11 +57,8 @@ public class AcomodacaoController {
     @DeleteMapping("{id}")
     public ResponseEntity<AcomodacaoDTO> deleteById(@PathVariable Long id) {
         Acomodacao acomodacao = buscarAcomodacaoCase.execute(id);
-        if (acomodacao != null) {
-            deletarAcomodacaoCase.execute(id);
-            return ResponseEntity.ok(acomodacaoMapper.ToDTO(acomodacao));
-        }
-        return ResponseEntity.notFound().build();
+        deletarAcomodacaoCase.execute(id);
+        return ResponseEntity.ok(acomodacaoMapper.ToDTO(acomodacao));
     }
 
     @GetMapping("/search")
@@ -72,11 +70,9 @@ public class AcomodacaoController {
 
     @PutMapping("{id}")
     public ResponseEntity<AcomodacaoDTO> update(@PathVariable Long id, @RequestBody AcomodacaoDTO acomodacaoDTO) {
-        Acomodacao acomodacao = buscarAcomodacaoCase.execute(id);
-        if (acomodacao != null) {
-            Acomodacao acomodacaoAtualizada = atualizarAcomodacaoCase.execute(id, acomodacaoMapper.ToDomain(acomodacaoDTO));
-            return  ResponseEntity.ok(acomodacaoMapper.ToDTO(acomodacaoAtualizada));
-        }
-        return ResponseEntity.ok(acomodacaoMapper.ToDTO(acomodacao));
+        buscarAcomodacaoCase.execute(id);
+        Acomodacao acomodacaoAtualizada = atualizarAcomodacaoCase.execute(id,acomodacaoMapper.ToDomain(acomodacaoDTO));
+        return ResponseEntity.ok(acomodacaoMapper.ToDTO(acomodacaoAtualizada));
+
     }
 }
