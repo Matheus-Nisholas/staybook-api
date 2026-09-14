@@ -1,5 +1,6 @@
 package com.nisholas.staybook.infrastructure.gateway;
 
+import com.nisholas.staybook.core.Exception.NotFoundAcomodaçaoException;
 import com.nisholas.staybook.core.entities.Acomodacao;
 import com.nisholas.staybook.core.enums.AcomodacaoTipos;
 import com.nisholas.staybook.core.enums.Status;
@@ -42,7 +43,7 @@ public class AcomodacaoRepositoryGateway implements AcomodacaoGateway {
         return acomodacaoRepository
                 .findById(id)
                 .map(acomodacaoEntityMapper::toDomain)
-                .orElseThrow(() -> new RuntimeException("Acomodação não encontrada"));
+                .orElseThrow(() -> new NotFoundAcomodaçaoException("A acomodação não foi encontrada ou não existe!"));
 
     }
 
